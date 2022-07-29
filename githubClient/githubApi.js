@@ -1,40 +1,22 @@
 const got = require("got")
 
 class GithubApi{
-
-  fetchRepositoryData = (path, callbackFunction) =>{ 
-    let url = "https://api.github.com/repos/" + path
-    got(url).then(response => {
-      callbackFunction(JSON.parse(response.body));
-    });
+  constructor() {
+    this.apiGit = 'https://api.github.com/repos/';
   }
+
+  fetchRepositoryData(path, callbackFunction) {
+		let url = this.apiGit + path;
+		got(url)
+		.then((response) => {
+			callbackFunction(JSON.parse(response.body));
+		});
+	}
+
 }
 
-class Github{
+module.exports = GithubApi;
 
-    constructor (api){
-        this.api = (api)
-    }
-    
-    fetch = (path) => {
-        this.api.fetchRepositoryData(path)
-        // return fetchedData
-        
-    }
-
-    getRepoData () {
-        return this.api.fetchRepositoryData();
-        // return fetchedData
-    }
-}
-module.exports = {GithubApi, Github};
-
-// setTimeout(executeAfterDelayFunction, num*1000);
-
-// const api = new GithubApi();
-
-// const github = new Github(api);
-
-// github.fetch('sinatra/sinatra');
-
-// github.getRepoData();
+// const githubApi = require('./githubApi');
+// const test = new GithubApi();
+// test.fetchRepositoryData('sinatra/sinatra');

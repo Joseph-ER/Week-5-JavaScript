@@ -5,13 +5,13 @@ class Github{
   }
   
   fetch = (path) => {
-      this.api.fetchRepositoryData(path)
-      
+      this.api.fetchRepositoryData(path, (repositoryData)=> {
+        this.repositoryData = repositoryData;
+      })
   }
 
   getRepoData () {
-      return fetchRepositoryData();
+      return this.repositoryData;
   }
 }
-
 module.exports = Github;

@@ -1,11 +1,13 @@
+const GithubApi = require('./githubApi');
+
 class Github{
 
   constructor (api){
       this.api = (api)
   }
   
-  fetch = (path) => {
-      this.api.fetchRepositoryData(path, (repositoryData)=> {
+  async fetch (path){
+      await this.api.fetchRepositoryData(path, (repositoryData)=> {
         this.repositoryData = repositoryData;
       })
   }
@@ -14,4 +16,11 @@ class Github{
       return this.repositoryData;
   }
 }
+
+const githubApi = new GithubApi();
+const github = new Github(githubApi);
+github.fetch('sinatra/sinatra');
+setTimeout(()=> console.log(github.getRepoData()),1000);
+
+
 module.exports = Github;
